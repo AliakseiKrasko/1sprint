@@ -1,24 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {ChangeEvent, useState} from 'react';
+
 import './App.css';
 
+type TaskProps = {
+    id: number
+    title: string
+    isDone: boolean
+}
+
 function App() {
+
+    let [tasks, setTasks] = React.useState<TaskProps[]>([
+        {id: 1, title: 'Task 1', isDone: false},
+        {id: 2, title: 'Task 2', isDone: true},
+        {id: 3, title: 'Task 2', isDone: false},
+        {id: 4, title: 'Task 3', isDone: false},
+    ]);
+
+    let [title, setTitle] = useState<string>('');
+
+    const RemoveTask = (id: number) => {
+        const Remtasks = tasks.filter((task) => task.id !== id);
+        setTasks(Remtasks);
+    }
+
+    const OnChangeHundler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
+    }
+
+    const AddTask = () => {
+
+        let NewTask: TaskProps = {
+            id: tasks.length + 1,
+            title: title,
+            isDone: false,
+
+        };
+        setTasks([NewTask, ...tasks])
+        setTitle('')
+    }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>What to learn</h2>
+        <input type="text" value={title} onChange={OnChangeHundler}/> <button onClick={AddTask}>+</button>
+        <ul>
+            {tasks.map((task) =>
+            <li key={task.id}>
+                <input type={'checkbox'} checked={task.isDone}></input>
+                <p>{task.title}</p>
+                <button onClick={()=>RemoveTask(task.id)}>remove</button>
+            </li>)}
+
+        </ul>
     </div>
   );
 }
