@@ -34,22 +34,30 @@ function App() {
         <div className="App">
             {mode ? (
                 <div className="display-set">
-                    <h4>Set Mode</h4>
-                    <input
-                        type="number"
-                        placeholder="Max value"
-                        onChange={(e) => setMaxValue(Number(e.target.value))}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Start value"
-                        onChange={(e) => setCount(Number(e.target.value))}
-                    />
-                    <button onClick={() => saveValues(maxValue, count)}>Save</button>
+                    <label className={"label-max"}>
+                        Max Value:
+                        <input
+                            type="number"
+                            placeholder="Max value"
+                            onChange={(e) => setMaxValue(Number(e.target.value))}
+                        />
+                    </label>
+                    <label className={"label-start"}>
+                        Start Value:
+                        <input
+                            type="number"
+                            placeholder="Start value"
+                            onChange={(e) => setCount(Number(e.target.value))}
+                        />
+                    </label>
+                    <div className={"button-set"}>
+                        <button onClick={() => saveValues(maxValue, count)}>set</button>
+                    </div>
+
                 </div>
             ) : (
                 <>
-                    <CounterDisplay maxValue={maxValue} value={count} />
+                    <CounterDisplay maxValue={maxValue} value={count}/>
                     <CounterButtons
                         onIncrement={increment}
                         onReset={reset}
