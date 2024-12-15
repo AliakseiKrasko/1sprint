@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, {useState} from 'react';
 
 type CounterDisplayProps = {
     value: number;
@@ -7,11 +6,17 @@ type CounterDisplayProps = {
 
 };
 
-export const CounterDisplay: React.FC<CounterDisplayProps> = ({ value, maxValue }) => {
+
+export const CounterDisplay: React.FC<CounterDisplayProps> = ({value, maxValue}) => {
+
+
+
     const displayClass = value >= maxValue ? 'counter-display max' : 'counter-display';
+
     return <div className={displayClass}>
         <h4>Max value:{maxValue}</h4>
         <p>{value}</p>
-        <progress value={value} max={maxValue} />
+        <progress value={value} max={maxValue}/>
     </div>;
+
 };
