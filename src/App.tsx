@@ -21,6 +21,7 @@ function App() {
     }
     const [maxError, setMaxError] = useState(false);
     const [startError, setStartError] = useState(false);
+    const [startValue, setStartValue] = useState(0);
 
     const [mode, SetMode] = useState(false);
     const toggleSetMode = () => {
@@ -48,8 +49,10 @@ function App() {
                                     if (!isNaN(value) && value > 0) { // Проверка: число и больше 0
                                         setMaxValue(value);
                                         setMaxError(false);
+                                        setStartError(false);
                                     } else {
                                         setMaxError(true);
+                                        setStartError(true);
                                     }
                                 }}
                             />
@@ -65,8 +68,10 @@ function App() {
                                     if (!isNaN(value) && value >= 0 && value < maxValue) { // Проверка: число >= 0 и меньше MaxValue
                                         setCount(value)
                                         setStartError(false);
+                                        setMaxError(false);
                                     } else {
                                         setStartError(true);
+                                        setMaxError(true);
                                     }
                                 }}
                             />
@@ -75,13 +80,15 @@ function App() {
                     <div className={"button-set"}>
                         <button
                             onClick={() => {
+
                                 if (count >= 0 && count < maxValue) {
                                     saveValues(maxValue, count);
                                     setMaxError(false);
                                     setStartError(false);
                                 } else {
-                                    setMaxError(true);
-                                    setStartError(true);
+                                    setMaxError(count >= maxValue);
+                                    setStartError(count < 0);
+
                                 }
                             }}
                         >
