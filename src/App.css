@@ -69,6 +69,11 @@ body {
     color: #0beaf3
 }
 
+.error {
+    border: 2px solid red;
+    background-color: #d86b6b;
+}
+
 
 .label-start {
     display: flex;

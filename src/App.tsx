@@ -19,6 +19,8 @@ function App() {
     const onSet = () => {
         toggleSetMode()
     }
+    const [maxError, setMaxError] = useState(false);
+    const [startError, setStartError] = useState(false);
 
     const [mode, SetMode] = useState(false);
     const toggleSetMode = () => {
@@ -39,23 +41,53 @@ function App() {
                             Max Value:
                             <input
                                 type="number"
+                                className={maxError ? 'error' : ''}
                                 placeholder="Max value"
-                                onChange={(e) => setMaxValue(Number(e.target.value))}
+                                onChange={(e) => {
+                                    const value = Number(e.target.value);
+                                    if (!isNaN(value) && value > 0) { // Проверка: число и больше 0
+                                        setMaxValue(value);
+                                        setMaxError(false);
+                                    } else {
+                                        setMaxError(true);
+                                    }
+                                }}
                             />
                         </label>
                         <label className={"label-start"}>
                             Start Value:
                             <input
                                 type="number"
+                                className={startError ? 'error' : ''}
                                 placeholder="Start value"
-                                onChange={(e) => setCount(Number(e.target.value))}
+                                onChange={(e) => {
+                                    const value = Number(e.target.value);
+                                    if (!isNaN(value) && value >= 0 && value < maxValue) { // Проверка: число >= 0 и меньше MaxValue
+                                        setCount(value)
+                                        setStartError(false);
+                                    } else {
+                                        setStartError(true);
+                                    }
+                                }}
                             />
                         </label>
                     </div>
                     <div className={"button-set"}>
-                        <button onClick={() => saveValues(maxValue, count)}>set</button>
+                        <button
+                            onClick={() => {
+                                if (count >= 0 && count < maxValue) {
+                                    saveValues(maxValue, count);
+                                    setMaxError(false);
+                                    setStartError(false);
+                                } else {
+                                    setMaxError(true);
+                                    setStartError(true);
+                                }
+                            }}
+                        >
+                            set
+                        </button>
                     </div>
-
                 </div>
             ) : (
                 <>
@@ -71,6 +103,7 @@ function App() {
             )}
         </div>
     );
+
 }
 
 export default App;
