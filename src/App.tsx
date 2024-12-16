@@ -16,9 +16,7 @@ function App() {
         setMaxValue(maxValue);
         // setMaxValue(Math.floor(Math.random() * 10) + 1);
     }
-    const onSet = () => {
-        toggleSetMode()
-    }
+
     const [maxError, setMaxError] = useState(false);
     const [startError, setStartError] = useState(false);
     const [startValue, setStartValue] = useState(0);
@@ -47,9 +45,11 @@ function App() {
                                 onChange={(e) => {
                                     const value = Number(e.target.value);
                                     if (!isNaN(value) && value > 0) { // Проверка: число и больше 0
+                                        debugger
                                         setMaxValue(value);
                                         setMaxError(false);
                                         setStartError(false);
+
                                     } else {
                                         setMaxError(true);
                                         setStartError(true);
@@ -65,10 +65,12 @@ function App() {
                                 placeholder="Start value"
                                 onChange={(e) => {
                                     const value = Number(e.target.value);
-                                    if (!isNaN(value) && value >= 0 && value < maxValue) { // Проверка: число >= 0 и меньше MaxValue
-                                        setCount(value)
+                                    if (!isNaN(value) && value >= 0 && value < maxValue) {
+                                        debugger// Проверка: число >= 0 и меньше MaxValue
+                                        setStartValue(value)
                                         setStartError(false);
                                         setMaxError(false);
+
                                     } else {
                                         setStartError(true);
                                         setMaxError(true);
@@ -81,13 +83,14 @@ function App() {
                         <button
                             onClick={() => {
 
-                                if (count >= 0 && count < maxValue) {
-                                    saveValues(maxValue, count);
+                                if (startValue >= 0 && startValue < maxValue) {
+                                    debugger
+                                    saveValues(maxValue, startValue);
                                     setMaxError(false);
                                     setStartError(false);
                                 } else {
-                                    setMaxError(count >= maxValue);
-                                    setStartError(count < 0);
+                                    setMaxError(startValue >= maxValue);
+                                    setStartError(startValue < 0);
 
                                 }
                             }}
