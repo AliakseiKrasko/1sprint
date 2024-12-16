@@ -83,16 +83,13 @@ function App() {
                         <button
                             onClick={() => {
 
-                                if (startValue >= 0 && startValue < maxValue) {
-                                    debugger
+
                                     saveValues(maxValue, startValue);
                                     setMaxError(false);
                                     setStartError(false);
-                                } else {
-                                    setMaxError(startValue >= maxValue);
-                                    setStartError(startValue < 0);
 
-                                }
+
+
                             }}
                         >
                             set
