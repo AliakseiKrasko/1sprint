@@ -15,3 +15,11 @@ test('reset counter', () => {
     expect(endState.maxValue).toBe(10)
     expect(endState.mode).toBe(false)
 });
+
+test('save values counter', () => {
+    const startState = {counter: 0, maxValue: 10, mode: false};
+    const endState = counterReducer(startState,  {type: 'SAVE_VALUE', value: 5, maxValue: 8})
+    expect(endState.counter).toBe(5)
+    expect(endState.maxValue).toBe(8)
+    expect(endState.mode).toBe(false)
+});
