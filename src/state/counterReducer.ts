@@ -62,3 +62,19 @@ export const counterReducer = (state: StateType = CounterState, action: ActionTy
             return state;
     }
 }
+
+export const IncrimentCounterAC = (maxValue: number): IncrimentCounter => {
+    return {type: 'INCREASING_COUNTER', maxValue: maxValue}
+}
+
+export const ResetCounterAC = (maxValue: number): ResetCounter => {
+    return {type: 'RESET_COUNTER', maxValue: maxValue}
+}
+
+export const SaveValuesCounterAC = (value: number, maxValue: number): SaveValuesCounter => {
+    return {type: 'SAVE_VALUE', value: value ,maxValue: maxValue}
+}
+
+export const ToggleSetModeAC = (mode: boolean): ToggleSetMode => {
+    return {type: 'TOGGLE_SET_MODE', mode: mode}
+}
