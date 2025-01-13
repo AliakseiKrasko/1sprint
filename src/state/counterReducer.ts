@@ -35,7 +35,7 @@ export type ToggleSetMode = {
 type ActionType = IncrimentCounter | ResetCounter | SaveValuesCounter | ToggleSetMode;
 
 
-export const counterReducer = (state: StateType = CounterState, action: ActionType) => {
+export const counterReducer = (state: StateType = CounterState, action: ActionType): StateType => {
     switch (action.type) {
         case 'INCREASING_COUNTER':
             return {
@@ -63,18 +63,18 @@ export const counterReducer = (state: StateType = CounterState, action: ActionTy
     }
 }
 
-export const IncrimentCounterAC = (maxValue: number): IncrimentCounter => {
+export const incrimentCounterAC = (maxValue: number): IncrimentCounter => {
     return {type: 'INCREASING_COUNTER', maxValue: maxValue}
 }
 
-export const ResetCounterAC = (maxValue: number): ResetCounter => {
+export const resetCounterAC = (maxValue: number): ResetCounter => {
     return {type: 'RESET_COUNTER', maxValue: maxValue}
 }
 
-export const SaveValuesCounterAC = (value: number, maxValue: number): SaveValuesCounter => {
+export const saveValuesCounterAC = (value: number, maxValue: number): SaveValuesCounter => {
     return {type: 'SAVE_VALUE', value: value ,maxValue: maxValue}
 }
 
-export const ToggleSetModeAC = (mode: boolean): ToggleSetMode => {
+export const toggleSetModeAC = (mode: boolean): ToggleSetMode => {
     return {type: 'TOGGLE_SET_MODE', mode: mode}
 }
