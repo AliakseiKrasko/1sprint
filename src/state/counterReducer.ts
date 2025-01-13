@@ -1,5 +1,4 @@
-
-type StateType = {
+export type StateType = {
     counter: number,
     maxValue: number,
     mode: boolean,
@@ -32,7 +31,14 @@ export type ToggleSetMode = {
     mode: boolean
 }
 
-type ActionType = IncrimentCounter | ResetCounter | SaveValuesCounter | ToggleSetMode;
+export type UpdateValuesAction = {
+    type: 'UPDATE_VALUES';
+    maxValue: number;
+    startValue: number;
+};
+
+
+type ActionType = IncrimentCounter | ResetCounter | SaveValuesCounter | ToggleSetMode | UpdateValuesAction;
 
 
 export const counterReducer = (state: StateType = CounterState, action: ActionType): StateType => {
@@ -45,18 +51,25 @@ export const counterReducer = (state: StateType = CounterState, action: ActionTy
         case 'RESET_COUNTER':
             return {
                 ...state,
-                counter: 0, maxValue: 10
+                counter: 0,
             }
-            case 'SAVE_VALUE':
-                return {
-                    ...state,
-                    counter: action.value, maxValue: action.maxValue
-                }
-                case 'TOGGLE_SET_MODE':
-                    return {
-                        ...state,
-                        mode: action.mode
-                    }
+        case 'SAVE_VALUE':
+            return {
+                ...state,
+                counter: action.value, maxValue: action.maxValue
+            }
+        case 'TOGGLE_SET_MODE':
+            return {
+                ...state,
+                mode: action.mode
+            }
+        case 'UPDATE_VALUES':
+            return {
+                ...state,
+                maxValue: action.maxValue,
+                counter: action.startValue,
+            };
+
 
         default:
             return state;
@@ -72,9 +85,13 @@ export const resetCounterAC = (maxValue: number): ResetCounter => {
 }
 
 export const saveValuesCounterAC = (value: number, maxValue: number): SaveValuesCounter => {
-    return {type: 'SAVE_VALUE', value: value ,maxValue: maxValue}
+    return {type: 'SAVE_VALUE', value: value, maxValue: maxValue}
 }
 
 export const toggleSetModeAC = (mode: boolean): ToggleSetMode => {
     return {type: 'TOGGLE_SET_MODE', mode: mode}
 }
+
+export const updateValuesAC = (maxValue: number, startValue: number): UpdateValuesAction => {
+    return {type: 'UPDATE_VALUES', maxValue, startValue}
+};
