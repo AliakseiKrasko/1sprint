@@ -9,9 +9,15 @@ import {
     resetCounterAC,
     saveValuesCounterAC, StateType, toggleSetModeAC, updateValuesAC
 } from './state/counterReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootReducer} from './state/store/store';
 
 function AppRedux() {
-    const [count, dispatch] = useReducer(counterReducer, CounterState);
+
+    const dispatch = useDispatch();
+    const count = useSelector<AppRootReducer, StateType>(state=>state.counter)
+
+
     const [maxError, setMaxError] = useState(false);
     useEffect(() => {
         const storedState = localStorage.getItem('counterValue');

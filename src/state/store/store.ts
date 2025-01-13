@@ -7,7 +7,7 @@ const rootReducer = combineReducers({
     counter: counterReducer,
 })
 
-type AppRootReducer = ReturnType<typeof rootReducer>;
+export type AppRootReducer = ReturnType<typeof rootReducer>;
 
 export const store = configureStore({
     reducer: rootReducer,
