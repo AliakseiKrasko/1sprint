@@ -12,7 +12,7 @@ import {
 
 function AppReducer() {
     const [count, dispatch] = useReducer(counterReducer, CounterState);
-
+    const [maxError, setMaxError] = useState(false);
     useEffect(() => {
         const storedState = localStorage.getItem('counterValue');
         if (storedState) {
@@ -32,12 +32,18 @@ function AppReducer() {
     const handleMaxValueChange = (value: number) => {
         if (value > 0 && value > count.counter) {
             dispatch(updateValuesAC(value, count.counter));
+            setMaxError(false);
+        } else {
+            setMaxError(true);
         }
     };
 
     const handleStartValueChange = (value: number) => {
         if (value >= 0 && value < count.maxValue) {
             dispatch(updateValuesAC(count.maxValue, value));
+            setMaxError(false);
+        } else {
+            setMaxError(true);
         }
     };
 
@@ -49,6 +55,8 @@ function AppReducer() {
                         Max Value:
                         <input
                             type="number"
+                            placeholder="Max value"
+                            className={maxError ? 'error' : ''}
                             value={count.maxValue}
                             onChange={(e) => handleMaxValueChange(Number(e.target.value))}
                         />
@@ -57,6 +65,8 @@ function AppReducer() {
                         Start Value:
                         <input
                             type="number"
+                            placeholder="Start value"
+                            className={maxError ? 'error' : ''}
                             value={count.counter}
                             onChange={(e) => handleStartValueChange(Number(e.target.value))}
                         />

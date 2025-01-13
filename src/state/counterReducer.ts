@@ -51,7 +51,7 @@ export const counterReducer = (state: StateType = CounterState, action: ActionTy
         case 'RESET_COUNTER':
             return {
                 ...state,
-                counter: 0,
+                counter: 0, maxValue: 10
             }
         case 'SAVE_VALUE':
             return {
